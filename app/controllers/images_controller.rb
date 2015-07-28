@@ -9,7 +9,7 @@ class ImagesController < ApplicationController
     image.user = current_user
     image.tag_list.add(params[:image][:tags], parse: true)
     gallery.images << image
-    
+
     if gallery.save
       redirect_to gallery_image_path(gallery, image), notice: 'Image created'
     else
@@ -48,7 +48,7 @@ class ImagesController < ApplicationController
   def find_gallery
     Gallery.find_by(id: params[:image][:gallery_id])
   end
-  
+
   def image_params
     params.require(:image).permit(:picture, :tag_list, :title, :description)
   end

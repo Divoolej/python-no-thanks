@@ -54,7 +54,7 @@ class GalleriesController < ApplicationController
       flash[:error] = "You are not permitted to do this action. Please log in."
       redirect_to new_user_session_path
     end
-  
+
   def extract_tags
     array = Array.new
     gallery.images.each do |i|
