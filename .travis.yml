@@ -1,0 +1,17 @@
+language: ruby
+rvm:
+- 2.2.0
+deploy:
+  provider: heroku
+  api_key:
+    secure: DQAvSYZDvk7S6WDwtvNQ7Wi3JGoecQHzd8YlJeKy1A1uefEH0WMAc40V1Js8YRF4kc58CeNCFu4rMQpUAL79JhcIvfTBvfnBuPZLa7sPiBMLnRPIhKua/puTHUph6LYuyh9R8cPMTQR53us/YpIHvggaQ/Y8RHCE14ZaP/pxbg5cIEwZKxmB0Ke1L+jDiJQO6M6KAqttYThv9fhIP/Zl7fq0vmejeA/zzB/MjrxvwJKGNZEP9rEGfGfLST2FFkXTFD3iGBq8/pKeoGRYpT2YyAv5lrobjjR07v3XTDutjHiyajNSVx2LdxDgK3pUCOi/rzviVk02bfYmrLLpimaBkTkgkfZHX41il6o12CDSyC9gxG562YmaBRyasBFY7/w+gy/MO3/PeKtPXHBIRCD3+hIwq3Mrp5g7IIBJwGTAAt1nk0A5Bt4MUEmEla7m5suxeV3+GrOpZJYlJg3oEye+9FAdL2Lck9pLjJS/HFjq58bjh66iJ8C4n5vtMcZa5liRSmE8n5VLDpMWtp/TfQ+FNCltuyhMehxLtzWdCQ+i6myCUeGhYZ7AngU/X6kZm5/h2OlkRtQe8jPAQ8HGo/r2pW2tBXL8Bqn5eQ+em2DAp9yJVO6SpBfgC2M4GuFNAkGGvPfZpa2qwBaym5ytq3EOla1mOnJX1AVrB7NYg7zo/HE=
+  run:
+  - rake db:migrate
+  app: python-no-thanks
+  on:
+    repo: Divoolej/python-no-thanks
+before_script:
+- cp config/database.yml.travis config/database.yml
+- psql -c 'create database travis_ci_test;' -U postgres
+- bundle exec rake db:migrate
+- bundle exec rake db:seed

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726094846) do
+ActiveRecord::Schema.define(version: 20150728223303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 20150726094846) do
   add_index "galleries", ["user_id"], name: "index_galleries_on_user_id", using: :btree
 
   create_table "images", force: :cascade do |t|
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
@@ -52,8 +52,22 @@ ActiveRecord::Schema.define(version: 20150726094846) do
     t.string   "description"
     t.integer  "user_id"
     t.integer  "gallery_id"
+    t.integer  "cached_votes_total",      default: 0
+    t.integer  "cached_votes_score",      default: 0
+    t.integer  "cached_votes_up",         default: 0
+    t.integer  "cached_votes_down",       default: 0
+    t.integer  "cached_weighted_score",   default: 0
+    t.integer  "cached_weighted_total",   default: 0
+    t.float    "cached_weighted_average", default: 0.0
   end
 
+  add_index "images", ["cached_votes_down"], name: "index_images_on_cached_votes_down", using: :btree
+  add_index "images", ["cached_votes_score"], name: "index_images_on_cached_votes_score", using: :btree
+  add_index "images", ["cached_votes_total"], name: "index_images_on_cached_votes_total", using: :btree
+  add_index "images", ["cached_votes_up"], name: "index_images_on_cached_votes_up", using: :btree
+  add_index "images", ["cached_weighted_average"], name: "index_images_on_cached_weighted_average", using: :btree
+  add_index "images", ["cached_weighted_score"], name: "index_images_on_cached_weighted_score", using: :btree
+  add_index "images", ["cached_weighted_total"], name: "index_images_on_cached_weighted_total", using: :btree
   add_index "images", ["gallery_id"], name: "index_images_on_gallery_id", using: :btree
   add_index "images", ["user_id"], name: "index_images_on_user_id", using: :btree
 

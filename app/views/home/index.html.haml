@@ -17,4 +17,4 @@
             .col-md-7
               %p.home_title= i.title
             .col-md-5
-              %span.home_likes= pluralize(i.get_upvotes.size, "Like")
+              %span.home_likes= pluralize(i.cached_votes_up, "Like")

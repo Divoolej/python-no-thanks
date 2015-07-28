@@ -83,4 +83,10 @@ pickle-email-*.html
 /config/application.yml
 
 # Secrets
-config/secrets.yml
+/config/secrets.yml
+
+# RVM gemset file
+/.ruby-gemset
+
+# Sublime Text project file
+/*.sublime-project

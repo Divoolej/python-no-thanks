@@ -1,4 +1,4 @@
-# Python-no-thanks (aka Imgur clone)
+# Python-no-thanks (aka Imgur clone) [![Build Status](https://travis-ci.org/Divoolej/python-no-thanks.svg)](https://travis-ci.org/Divoolej/python-no-thanks)
 
 Hello and welcome to **python-no-thanks**, an application we made during Netguru's Level Up Ruby on Rails Workshops in Warsaw.
 
