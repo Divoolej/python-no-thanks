@@ -10,7 +10,11 @@ RSpec.describe GalleriesController, type: :controller do
     end
 
     describe "POST #create" do
+
+      subject { post :create, params }
+
       context "with valid params" do
+
         let(:params) do
           {
             gallery: { title: "MyTitle", user: test_user, description: "MyDesc",
@@ -20,8 +24,6 @@ RSpec.describe GalleriesController, type: :controller do
                                       picture_file_name: 'test-image.jpg' }] }
           }
         end
-
-        subject { post :create, params }
 
         it "creates a new Gallery" do
           expect{ subject }.to change{ Gallery.count }.by(1)
@@ -40,6 +42,53 @@ RSpec.describe GalleriesController, type: :controller do
           subject
           expect(controller.gallery).to be_a(Gallery)
           expect(controller.gallery).to be_persisted
+        end
+      end
+    end
+  end
+
+  context "user is not signed in" do
+
+    before do
+      allow(controller).to receive(:user_signed_in?).and_return(false)
+      allow(controller).to receive(:current_user).and_return(nil)
+    end
+
+    describe "POST #create" do
+
+      subject { post :create, params }
+
+      context "with valid params" do
+
+        let(:params) do
+          {
+            gallery: { title: "MyTitle", description: "MyDesc",
+                images_attributes: [{ title: "ImgTitle",
+                                      description: "ImgDescription",
+                                      picture_file_name: 'test-image.jpg' }] }
+          }
+        end
+
+        it "redirects to the login page" do
+          subject
+          expect(response).to redirect_to(new_user_session_path)
+        end
+      end
+
+      context "with invalid params" do
+
+        let(:params) do
+          {
+            gallery: { title: "", description: "",
+                images_attributes: [{ title: "",
+                                      description: "",
+                                      picture_file_name: '' }] }
+          }
+        end
+
+        it "redirects to the login page" do
+          subject
+          expect(response).to redirect_to(new_user_session_path)
         end
       end
     end
