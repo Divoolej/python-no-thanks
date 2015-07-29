@@ -23,11 +23,6 @@ RSpec.describe GalleriesController, type: :controller do
 
         subject { post :create, params }
 
-        it "is successful" do
-          subject
-          expect(response).to be_successful
-        end
-
         it "creates a new Gallery" do
           expect{ subject }.to change{ Gallery.count }.by(1)
         end
@@ -36,9 +31,15 @@ RSpec.describe GalleriesController, type: :controller do
           expect{ subject }.to change(Image, :count).by(1)
         end
 
-        it "redirects to the Gallery page" do
+        it "redirects to the created Gallery page" do
           subject
           expect(response).to redirect_to(gallery_path(Gallery.last))
+        end
+
+        it "exposes the created Gallery" do
+          subject
+          expect(controller.gallery).to be_a(Gallery)
+          expect(controller.gallery).to be_persisted
         end
       end
     end
