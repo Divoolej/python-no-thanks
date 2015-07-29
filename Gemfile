@@ -17,25 +17,16 @@ gem 'decent_decoration'
 gem 'acts-as-taggable-on', '~> 3.4'
 gem 'acts_as_commentable'
 gem 'cocoon'
-
-group :development, :test do
-  gem 'byebug'
-  gem 'web-console', '~> 2.0'
-  gem 'spring'
-end
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'haml-rails'
 gem 'pg'
 gem 'simple_form'
-group :development do
-  gem 'better_errors'
-  gem 'html2haml'
-  gem 'quiet_assets'
-  gem 'rails_layout'
-  gem 'spring-commands-rspec'
-end
+
 group :development, :test do
+  gem 'byebug'
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'pry-rails'
@@ -43,10 +34,15 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop'
 end
-group :production do
-  gem 'puma'
-  gem 'rails_12factor'
+
+group :development do
+  gem 'better_errors'
+  gem 'html2haml'
+  gem 'quiet_assets'
+  gem 'rails_layout'
+  gem 'spring-commands-rspec'
 end
+
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
@@ -54,3 +50,9 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
+
+group :production do
+  gem 'puma'
+  gem 'rails_12factor'
+end
+
